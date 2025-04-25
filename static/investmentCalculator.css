@@ -15,7 +15,10 @@ body {
   background-color: #23E090;
 }
 
-
+.logo{
+  height: 3rem;
+  margin: 0 0 0 1rem;
+}
 /* container section or full body*/
 .container {
   max-width: 800px;
