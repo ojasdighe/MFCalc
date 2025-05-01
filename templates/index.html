@@ -1,285 +1,504 @@
 <!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Investment Calculator</title>
-    <style>
-        /* Base styles */
-        :root {
-            --primary: #2563eb;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gray: #6b7280;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
-            margin: 0;
-            padding: 20px;
-            background: #f3f4f6;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        input[type="number"],
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        #results {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 4px;
-            background: #f8fafc;
-        }
-
-        .result-value {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 10px 0;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .recommendation {
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 10px;
-            font-weight: 500;
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="../static/investmentCalculator.css" />
+  </head>
+  <body>
+    <img src="../static/logoNew.png" class="logo" alt="">
     <div class="container">
-        <h1>Investment Calculator</h1>
-        
-        <form id="calculatorForm">
-            <div class="form-group">
-                <label>Investment Type</label>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="investmentType" value="sip" checked>
-                        SIP
-                    </label>
-                    <label>
-                        <input type="radio" name="investmentType" value="swp">
-                        SWP
-                    </label>
-                    <label>
-                        <input type="radio" name="investmentType" value="stp">
-                        STP
-                    </label>
-                </div>
+      <!-- heading container starts here -->
+      <div class="heading-container">
+        <h1 class="heading">Investment Calculator</h1>
+      </div>
+      <!-- heading ends here -->
+
+      <!-- form section starts here in this form the radio btn , input box, progress barand a submit button is present -->
+      <form id="calculatorForm">
+        <!-- First radio btn form -->
+        <div class="form-group select-type-box">
+          <label class="heading-selection-type small-heading"
+            >Investment Type</label
+          >
+          <div class="radio-group first-radio-group">
+            <label class="select-type active-btn active">
+              <input
+                type="radio"
+                name="investmentType"
+                value="sip"
+                class="radio"
+              />
+              SIP
+            </label>
+            <label class="select-type active-btn">
+              <input
+                type="radio"
+                name="investmentType"
+                value="swp"
+                class="radio"
+              />
+              SWP
+            </label>
+            <label class="select-type active-btn">
+              <input
+                type="radio"
+                name="investmentType"
+                value="stp"
+                class="radio"
+              />
+              STP
+            </label>
+          </div>
+        </div>
+
+        <!-- Second radio btns -->
+
+        <div id="sipOptions" class="form-group second-form-group">
+          <label class="small-heading">Investment Frequency</label>
+          <div class="radio-group second-radio-group">
+            <label class="select-type select-type-2 active-btn active">
+              <input
+                type="radio"
+                name="sipType"
+                value="monthly"
+                class="radio default"
+              />
+              Monthly
+            </label>
+            <label class="select-type select-type-2 active-btn">
+              <input
+                type="radio"
+                name="sipType"
+                value="lumpsum"
+                class="radio default"
+              />
+              Lumpsum
+            </label>
+          </div>
+        </div>
+        <!-- this is a box which contain two div class="input-boxs-container" and class="additional-fields"-->
+        <div class="box-container">
+          <div class="input-boxs-container">
+            <!-- this input-boxs-container contain three input box or form-group class -->
+            <div class="form-group input-box-container">
+              <label for="amount" class="small-heading"
+                >Investment Amount (₹)</label
+              >
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                value="10000"
+                min="0"
+                class="input-box"
+              />
+              <input
+                type="range"
+                id="amountRange"
+                min="0"
+                max="1000000"
+                step="1000"
+                value="10000"
+                class="slider"
+              />
             </div>
 
-            <div id="sipOptions" class="form-group">
-                <label>Investment Frequency</label>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="sipType" value="monthly" checked>
-                        Monthly
-                    </label>
-                    <label>
-                        <input type="radio" name="sipType" value="lumpsum">
-                        Lumpsum
-                    </label>
-                </div>
+            <div class="form-group input-box-container">
+              <label for="years" class="small-heading"
+                >Investment Period (Years)</label
+              >
+              <input
+                type="number"
+                id="years"
+                name="years"
+                value="5"
+                min="1"
+                max="30"
+                class="input-box"
+              />
+              <input
+                type="range"
+                id="yearsRange"
+                min="1"
+                max="30"
+                step="1"
+                value="5"
+                class="slider"
+              />
             </div>
 
-            <div class="form-group">
-                <label for="amount">Investment Amount (₹)</label>
-                <input type="number" id="amount" name="amount" value="10000" min="0">
-                <input type="range" id="amountRange" min="0" max="1000000" step="1000" value="10000">
+            <div class="form-group input-box-container">
+              <label for="expectedReturn" class="small-heading"
+                >Expected Return (%)</label
+              >
+              <input
+                type="number"
+                id="expectedReturn"
+                name="expectedReturn"
+                value="12"
+                min="0"
+                step="0.1"
+                max="100"
+                class="input-box"
+              />
+              <input
+                type="range"
+                id="expectedReturnRange"
+                min="0"
+                max="100"
+                step="0.1"
+                value="12"
+                class="slider"
+              />
             </div>
+          </div>
 
-            <div class="form-group">
-                <label for="years">Investment Period (Years)</label>
-                <input type="number" id="years" name="years" value="5" min="1" max="30">
-                <input type="range" id="yearsRange" min="1" max="30" step="1" value="5">
-            </div>
-
-            <div class="form-group">
-                <label for="expectedReturn">Expected Return (%)</label>
-                <input type="number" id="expectedReturn" name="expectedReturn" value="12" min="0" max="100">
-                <input type="range" id="expectedReturnRange" min="0" max="100" step="0.1" value="12">
-            </div>
-
-            <div id="additionalFields"></div>
-
-            <button type="submit">Calculate</button>
-        </form>
-
+          <!-- inside additional-fields dynamically one or three input boxes is added when we click on the radio btn -->
+          <div id="additionalFields" class="additional-fields"></div>
+        </div>
+        <button type="submit" class="btn">Calculate</button>
+      </form>
+      <!-- result section. inside this div dynamically added a h1 heading of the result and the value of the result -->
+      <div class="result-progress-container">
         <div id="results" class="hidden"></div>
+        <!-- <div class="title">Investment Amounts and Future Returns</div> -->
+         <div class="scroll">
+           <div id="donutchart"></div>
+         </div>
+      </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('calculatorForm');
-            const results = document.getElementById('results');
-            const sipOptions = document.getElementById('sipOptions');
-            const additionalFields = document.getElementById('additionalFields');
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
 
-            // Sync number inputs with range inputs
-            function syncInputs(inputId, rangeId) {
-                const input = document.getElementById(inputId);
-                const range = document.getElementById(rangeId);
-                input.addEventListener('input', () => range.value = input.value);
-                range.addEventListener('input', () => input.value = range.value);
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        let futureValue = 0;
+        let InvestedAmount = document.getElementById("amount");
+        const profitesPercentage =
+          document.getElementById("profitesPercentage");
+        const form = document.getElementById("calculatorForm");
+        const results = document.getElementById("results");
+        const sipOptions = document.getElementById("sipOptions");
+        const additionalFields = document.getElementById("additionalFields");
+        const progressCircle = document.getElementById("progressBarCircle");
+        // const expectedReturn = document.getElementById('expectedReturn').value
+        const radialBar = document.getElementById("radialBar");
+        const donutChart = document.getElementById("donutchart");
+        const investmentPeriod = document.getElementById("years");
+        const defaultColor = document.getElementsByClassName("default");
+
+        // Sync number inputs with range inputs
+        function syncInputs(inputId, rangeId) {
+          const input = document.getElementById(inputId);
+          const range = document.getElementById(rangeId);
+          input.addEventListener("input", () => {
+            range.value = input.value;
+          });
+          range.addEventListener("input", () => {
+            input.value = range.value;
+          });
+        }
+
+        syncInputs("amount", "amountRange");
+        syncInputs("years", "yearsRange");
+        syncInputs("expectedReturn", "expectedReturnRange");
+
+        // Handle investment type changes
+        document
+          .querySelectorAll('input[name="investmentType"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", function () {
+
+              // Remove active class from all labels
+              document.querySelectorAll(".select-type").forEach((label) => {
+                label.classList.remove("active");
+              });
+
+              // Add active class to the selected label
+              this.parentElement.classList.add("active");
+
+              sipOptions.style.display = this.value === "sip" ? "" : "none";
+
+              additionalFields.innerHTML = "";
+
+              if (this.value === "swp") {
+                console.log("working swp");
+
+                additionalFields.innerHTML = `
+                            <div class="form-group input-box-container">
+                                <label class="small-heading" for="monthlyWithdrawal">Monthly Withdrawal (₹)</label>
+                                <input type="number" id="monthlyWithdrawal" name="monthlyWithdrawal" value="5000" min="0" class="input-box">
+                                <input type="range" id="monthlyWithdrawalRange" min="0" max="100000" step="1000" value="5000" class="slider">
+                            </div>
+                        `;
+                syncInputs("monthlyWithdrawal", "monthlyWithdrawalRange");
+              } else if (this.value === "stp") {
+                additionalFields.innerHTML = `
+                            <div class="form-group input-box-container">
+                                <label class="small-heading" for="monthlyTransfer">Monthly Transfer Amount (₹)</label>
+                                <input type="number" id="monthlyTransfer" name="monthlyTransfer" value="5000" min="0"  class="input-box">
+                                <input type="range" id="monthlyTransferRange" min="0" max="100000" step="1000" value="5000" class="slider">
+                            </div>
+                            <div class="form-group input-box-container">
+                                <label class="small-heading" for="sourceReturn">Source Fund Return (%)</label>
+                                <input step="0.1" type="number" id="sourceReturn" name="sourceReturn" value="8" min="0" max="100" class="input-box">
+                                <input type="range" id="sourceReturnRange" min="0" max="100" step="0.1" value="8" class="slider">
+                            </div>
+                            <div class="form-group input-box-container">
+                                <label class="small-heading" for="targetReturn">Target Fund Return (%)</label>
+                                <input step="0.1" type="number" id="targetReturn" name="targetReturn" value="12" min="0" max="100" class="input-box">
+                                <input type="range" id="targetReturnRange" min="0" max="100" step="0.1" value="12" class="slider">
+                            </div>
+                        `;
+                syncInputs("monthlyTransfer", "monthlyTransferRange");
+                syncInputs("sourceReturn", "sourceReturnRange");
+                syncInputs("targetReturn", "targetReturnRange");
+                console.log("working stp");
+              }
+            });
+          });
+
+        // Handle SIP type changes
+        document.querySelectorAll('input[name="sipType"]').forEach((radio) => {
+          radio.addEventListener("change", function () {
+            document.querySelectorAll(".select-type-2").forEach((label) => {
+              label.classList.remove("active");
+            });
+            this.parentElement.classList.add("active");
+            console.log("active");
+          });
+        });
+
+        // Handle form submission
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData);
+          // values = data.expectedReturn
+          // console.log(data)
+          try {
+            const response = await fetch("/calculate", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              if (
+                result.investment_type === "sip" ||
+                result.investment_type === "swp"
+              ) {
+                displayResults(result);
+
+                futureValue = result.future_value;
+
+                let savingAccountValue = calculateInterest(
+                  InvestedAmount.value,
+                  investmentPeriod.value
+                );
+
+                let fdValue = calculateFD(
+                  InvestedAmount.value,
+                  investmentPeriod.value
+                );
+
+                drawChart(
+                  Number(InvestedAmount.value),
+                  Number(futureValue),
+                  savingAccountValue,
+                  fdValue
+                );
+              } else {
+                displayResults(result);
+
+                let source = result.source_final;
+                let target = result.target_final;
+                let total = source + target;
+                console.log(result);
+
+                let savings = calculateInterest(
+                  InvestedAmount.value,
+                  investmentPeriod.value
+                );
+
+                let fd = calculateFD(
+                  InvestedAmount.value,
+                  investmentPeriod.value
+                );
+
+                drawChartForSTP(
+                  Number(InvestedAmount.value),
+                  savings,
+                  fd,
+                  source,
+                  target,
+                  total
+                );
+              }
+            } else {
+              throw new Error(result.error);
             }
+          } catch (error) {
+            results.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            results.classList.remove("hidden");
+          }
+        });
 
-            syncInputs('amount', 'amountRange');
-            syncInputs('years', 'yearsRange');
-            syncInputs('expectedReturn', 'expectedReturnRange');
+        function displayResults(result) {
+          let html =
+            '<div class="box-result"><h2>Results</h2> <div class="line"></div></div>';
 
-            // Handle investment type changes
-            document.querySelectorAll('input[name="investmentType"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    sipOptions.style.display = this.value === 'sip' ? 'block' : 'none';
-                    additionalFields.innerHTML = '';
+          // data.investmentType
 
-                    if (this.value === 'swp') {
-                        additionalFields.innerHTML = `
-                            <div class="form-group">
-                                <label for="monthlyWithdrawal">Monthly Withdrawal (₹)</label>
-                                <input type="number" id="monthlyWithdrawal" name="monthlyWithdrawal" value="5000" min="0">
-                                <input type="range" id="monthlyWithdrawalRange" min="0" max="100000" step="1000" value="5000">
-                            </div>
-                        `;
-                        syncInputs('monthlyWithdrawal', 'monthlyWithdrawalRange');
-                    } else if (this.value === 'stp') {
-                        additionalFields.innerHTML = `
-                            <div class="form-group">
-                                <label for="monthlyTransfer">Monthly Transfer Amount (₹)</label>
-                                <input type="number" id="monthlyTransfer" name="monthlyTransfer" value="5000" min="0">
-                                <input type="range" id="monthlyTransferRange" min="0" max="100000" step="1000" value="5000">
-                            </div>
-                            <div class="form-group">
-                                <label for="sourceReturn">Source Fund Return (%)</label>
-                                <input type="number" id="sourceReturn" name="sourceReturn" value="8" min="0" max="100">
-                                <input type="range" id="sourceReturnRange" min="0" max="100" step="0.1" value="8">
-                            </div>
-                            <div class="form-group">
-                                <label for="targetReturn">Target Fund Return (%)</label>
-                                <input type="number" id="targetReturn" name="targetReturn" value="12" min="0" max="100">
-                                <input type="range" id="targetReturnRange" min="0" max="100" step="0.1" value="12">
-                            </div>
-                        `;
-                        syncInputs('monthlyTransfer', 'monthlyTransferRange');
-                        syncInputs('sourceReturn', 'sourceReturnRange');
-                        syncInputs('targetReturn', 'targetReturnRange');
-                    }
-                });
-            });
-
-            // Handle form submission
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData);
-
-                try {
-                    const response = await fetch('/calculate', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    const result = await response.json();
-                    if (result.success) {
-                        displayResults(result);
-                    } else {
-                        throw new Error(result.error);
-                    }
-                } catch (error) {
-                    results.innerHTML = `<div class="error">Error: ${error.message}</div>`;
-                    results.classList.remove('hidden');
-                }
-            });
-
-            function displayResults(result) {
-                let html = '<h2>Results</h2>';
-
-                if (result.investment_type === 'stp') {
-                    html += `
+          if (result.investment_type === "stp") {
+            html += `
                         <div class="result-value">Source Fund Final Value: ₹${result.source_final.toLocaleString()}</div>
                         <div class="result-value">Target Fund Final Value: ₹${result.target_final.toLocaleString()}</div>
+                        <div class="result-value">Total Portfolio Value: ₹${(
+                          result.source_final + result.target_final
+                        ).toFixed(2)}</div>
                     `;
-                } else {
-                    html += `<div class="result-value">Future Value: ₹${result.future_value.toLocaleString()}</div>`;
-                }
+          } else {
+            html += `<div class="result-value">Future Value: ₹ <span class="green-text">${result.future_value.toLocaleString()}</span> </div>`;
+          }
 
-                results.innerHTML = html;
-                results.classList.remove('hidden');
-            }
-        });
+          results.innerHTML = html;
+          results.classList.remove("hidden");
+          donutChart.style.display = "block";
+        }
+
+        // --------------------------- bar Chart-------------------
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart(
+          InvestedAmount,
+          futureValue,
+          savingAccountInterest,
+          TotalFDValue
+        ) {
+          let data = google.visualization.arrayToDataTable([
+            ["Investment", "Amounts", { role: "style" }],
+            ["Investment", InvestedAmount, "#799FE8"],
+            ["Savings", savingAccountInterest, "#25521C"],
+            ["FD", TotalFDValue, "color: #C2D82B"],
+            ["Returns", futureValue, "#96EF7C"],
+          ]);
+
+          let view = new google.visualization.DataView(data);
+          view.setColumns([
+            0,
+            1,
+            {
+              calc: "stringify",
+              sourceColumn: 1,
+              type: "string",
+              role: "annotation",
+            },
+            2,
+          ]);
+
+          let options = {
+            title: "Investment Amounts and Future Returns",
+            width: 400,
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+            hAxis: {
+              title: "IN Rupees", // Label for the x-axis
+            },
+          };
+          let chart = new google.visualization.BarChart(
+            document.getElementById("donutchart")
+          );
+          chart.draw(view, options);
+        }
+
+        //    ----------Bar chart ends here-----------
+
+        google.charts.setOnLoadCallback(drawChartForSTP);
+
+        function drawChartForSTP(amount, savings, fd, source, target, total) {
+          let data = google.visualization.arrayToDataTable([
+            ["Investment", "Amounts", { role: "style" }],
+            ["Investment", amount, "#799FE8"],
+            ["Savings", savings, "#25521C"],
+            ["FD", fd, "color: #C2D82B"],
+            ["Source Fund", source, "#BC9EC9"],
+            ["Target Fund", target, "#ADCEA3"],
+            ["Total Returns", total, "#96EF7C"],
+          ]);
+
+          let view = new google.visualization.DataView(data);
+          view.setColumns([
+            0,
+            1,
+            {
+              calc: "stringify",
+              sourceColumn: 1,
+              type: "string",
+              role: "annotation",
+            },
+            2,
+          ]);
+
+          let options = {
+            title: "Investment Amounts and Future Returns",
+            width: 400,
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+            titleTextStyle: {
+              fontSize: 18, // Adjust title font size
+              bold: true, // Make title bold
+              alignment: "center", // Center the title
+            },
+            hAxis: {
+              title: "IN Rupees", // Label for the x-axis
+            },
+          };
+          let chart = new google.visualization.BarChart(
+            document.getElementById("donutchart")
+          );
+          chart.draw(view, options);
+        }
+
+        // ------------Function to calculate saving account interst -----------
+        function calculateInterest(InvestedAmount, inputYear) {
+          const interestRatePerYear = 0.035; // 3.5% expressed as a decimal
+          let totalInterestRate = interestRatePerYear * Number(inputYear);
+          let interest = Number(InvestedAmount) * totalInterestRate;
+          console.log("interest total ", interest);
+          let total = Number(InvestedAmount) + interest;
+          return total;
+        }
+
+        // Function to calculate the fd
+        // A= P(1 + r/100)t
+        function calculateFD(InvestedAmountForFd, inputYearForFd) {
+          const interestRatePerYear = 0.07; // 7.5% expressed as a decimal
+          let InvestedAmount = Number(InvestedAmountForFd);
+          let year = Number(inputYearForFd);
+          let c = Math.pow(1 + interestRatePerYear, year);
+          let intrestAmount = InvestedAmount * c;
+          console.log("intrest Amount", intrestAmount);
+
+          let Maturity = InvestedAmount + intrestAmount;
+          console.log("Maturity", Maturity);
+
+          return Maturity;
+        }
+      });
     </script>
-</body>
+    <!-- <script src="index.js"></script> -->
+  </body>
 </html>

@@ -50,7 +50,7 @@ class InvestmentCalculator:
         
         target_final = monthly_transfer * ((1 + target_monthly_rate) ** months - 1) / target_monthly_rate * \
                       (1 + target_monthly_rate)
-        
+        print(source_final, target_final)
         return round(source_final, 2), round(target_final, 2)
 
 @app.route('/calculate', methods=['POST'])
@@ -59,14 +59,17 @@ def calculate():
         data = request.get_json()
         calculator = InvestmentCalculator()
         
+        investment_type = data.get('investmentType', 'sip')
         result = {
             'success': True,
             'future_value': 0,
             'recommendation': '',
-            'sharpe_ratio': None
+            'source_final':0,
+            'target_final':0,
+            'sharpe_ratio': None,
+            'investment_type': investment_type
         }
         
-        investment_type = data.get('investmentType', 'sip')
         amount = float(data.get('amount', 0))
         years = float(data.get('years', 1))
         expected_return = float(data.get('expectedReturn', 10))
@@ -83,10 +86,11 @@ def calculate():
                 float(data.get('sourceReturn', 0)), float(data.get('targetReturn', 0)))
             result['source_final'] = source_final
             result['target_final'] = target_final
-        
+            print("working")
+        print("Result : ", result)
         return jsonify(result)
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
